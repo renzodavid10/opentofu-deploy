@@ -2,20 +2,20 @@
 
 variable "instance_name" {
   description = "Name of instance"
-  type = string
-  default = "Primera Instancia"
+  type        = string
+  default     = "Primera Instancia"
 }
 
 variable "instance_type" {
   description = "Type of instance"
-  type = string
-  default = "t2.micro"
+  type        = string
+  default     = "t2.micro"
 }
 variable "instance_bootstrap_script" {
-    description = "Instance bootstrap script"
-    type = string
-    default = "ec2.sh"
-  
+  description = "Instance bootstrap script"
+  type        = string
+  default     = "ec2.sh"
+
 }
 
 data "aws_ami" "ubuntu" {
@@ -39,8 +39,8 @@ resource "aws_instance" "web" {
   instance_type = var.instance_type
 
   # Asegúrate de que la subred y el grupo de seguridad estén configurados correctamente
-  subnet_id               = aws_subnet.public.id
-  vpc_security_group_ids  = [aws_security_group.app.id]
+  subnet_id              = aws_subnet.public.id
+  vpc_security_group_ids = [aws_security_group.app.id]
 
   user_data = file("${path.module}/bootstrap/${var.instance_bootstrap_script}")
 
