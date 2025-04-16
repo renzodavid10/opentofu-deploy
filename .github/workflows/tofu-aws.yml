@@ -42,3 +42,7 @@ jobs:
       - name: Apply Infrastructure (Only on push to main)
         if: github.ref == 'refs/heads/main'
         run: tofu apply -auto-approve
+      
+      - name: Destroy Infrastructure
+        if: github.event.inputs.action == 'destroy'
+        run: tofu destroy -auto-approve
